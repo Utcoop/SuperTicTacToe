@@ -35,7 +35,7 @@ public class BoardHandler {
    * @param board Checks to see if board is fully filled or not. If it is, it
    *              returns the
    *              player that has majority spaces. If it isn't it returns -1,
-   *              indicating the board has not one.
+   *              indicating the board has not been won.
    * @return
    */
   public static int tieBreak(int[][] board) {
