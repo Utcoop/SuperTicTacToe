@@ -37,17 +37,35 @@ public class tic_tac_toe implements ActionListener {
                 c++;
             }
         }
+        initializeBoard();
         frame.add(mainPanel, BorderLayout.CENTER);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
+    }
+
+    public void initializeBoard() {
+        int startPanel = 4;
+        for (int i = 0; i < panels.length; i++){
+            if (panels[startPanel]==panels[i]){
+                for (Component j: panels[i].getComponents()){
+                        j.setEnabled(true);
+                }
+            }else{
+                for (Component j: panels[i].getComponents()){
+                    j.setEnabled(false);
+                }
+            }
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (xTurn) {
             button.setText("X");
+            //Set text of X to red
         } else {
             button.setText("O");
+            //Set text of O to blue
         }
         button.setEnabled(false);
         int num = Integer.parseInt(button.getName())%9;
@@ -62,7 +80,7 @@ public class tic_tac_toe implements ActionListener {
                     }
                 }
             }else{
-                 for (Component j: panels[i].getComponents()){
+                for (Component j: panels[i].getComponents()){
                     j.setEnabled(false);
                 }
             }
@@ -90,60 +108,88 @@ public class tic_tac_toe implements ActionListener {
             case 0: num = 0;
                     col = num%3;
                     row = num/3;
-                    System.out.println("Case 0 ");
+                    //System.out.println("Case 0 ");
                     break;
             case 1: num = 1;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 1 ");
+                    //System.out.print("Case 1 ");
                     break;
             case 2: num = 2;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 2 ");
+                    //System.out.print("Case 2 ");
                     break;
             case 3: num = 3;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 3 ");
+                    //System.out.print("Case 3 ");
                     break;
             case 4: num = 4;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 4 ");
+                    //System.out.print("Case 4 ");
                     break;
             case 5: num = 5;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 5 ");
+                    //System.out.print("Case 5 ");
                     break;
             case 6: num = 6;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 6 ");    
+                    //System.out.print("Case 6 ");    
                     break;
             case 7: num = 7;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 7 ");
+                    //System.out.print("Case 7 ");
                     break;
             case 8: num = 8;
                     col = num%3;
                     row = num/3;
-                    System.out.print("Case 8 ");
+                    //System.out.print("Case 8 ");
                     break;
-            default: //throw new IllegalArgumentException("Invalid Tile Name");
+            default: throw new IllegalArgumentException("Invalid Tile Name");
         }
-        System.out.println(player.takeTurn(row, col, player.getCurrentPlayer()));
+        player.takeTurn(row, col, player.getCurrentPlayer());
+        //System.out.println(player.toStringSmallBoard());
+        //System.out.println(player.toStringMainBoard());
+        //System.out.println(player.toStringScoreBoard());
+        if  (player.getLargeBoard().checkLargeBoardWin()){
+            int winner = player.getWinner();
+            if (winner == 1){
+                JOptionPane.showMessageDialog(frame, "O wins!");
+                player.reset();
+                resetGame();
+            }
+            else{
+                JOptionPane.showMessageDialog(frame, "X wins!");
+                player.reset();
+                resetGame();
+            }
+        }
     }
         
 
     public void resetGame() {
-        for (int i = 0; i < 9; i++) {
-            buttons[i].setText("");
-            buttons[i].setEnabled(true);
+        xTurn=true;
+        int startPanel = 4;
+        for (int i = 0; i < panels.length; i++){
+            if (panels[startPanel]==panels[i]){
+                for (Component j: panels[i].getComponents()){
+                        JButton temp = (JButton) j;
+                        temp.setText("");
+                        j.setEnabled(true);
+                }
+            }else{
+                for (Component j: panels[i].getComponents()){
+                    JButton temp = (JButton) j;
+                    temp.setText("");
+                    j.setEnabled(false);
+                }
+            }
         }
-        xTurn = true;
     }
 
     public static void main(String[] args) {

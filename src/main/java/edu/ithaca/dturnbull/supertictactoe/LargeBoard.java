@@ -36,7 +36,9 @@ public class LargeBoard {
         if (scoreBoard[row][col] == -1) {
             scoreBoard[row][col] = player;
             checkLargeBoardWin();
-        } else {
+        } else if (scoreBoard[row][col] == 1 || scoreBoard[row][col] == 0) {
+            return scoreBoard;
+        }else {
             System.out.println("This should never be reached");
         }
         return scoreBoard;
@@ -135,5 +137,9 @@ public class LargeBoard {
      */
     public Boolean getWon(){
         return won;
+    }
+    
+    public int getWinner(){
+        return ownedBy;
     }
 }

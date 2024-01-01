@@ -135,4 +135,8 @@ public class Player {
     public String toStringCurrentBoard(){
         return currentBoard.toStringSmallBoard();
     }
+    
+    public int getWinner(){
+        return mainBoard.getWinner();
+    }
 }
